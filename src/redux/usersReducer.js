@@ -73,7 +73,7 @@ export const setTotalUserCount = (totalUserCount) => ({type: SET_USER_COUNT, cou
 //7) loading
 export const toggleIsFetching = (isFetching) => ({type: TOGGLE_IS_FETCHING, isFetching})
 export const toggleFollowingProgress = (isFetching, userId) => ({type: TOGGLE_IS_FOLLOWING_PROGRESS, isFetching, userId})
-export const getUsersThunkCreator = (currentPage, pageSize)=>{
+export const getUsers = (currentPage, pageSize)=>{
    return (dispatch)=>{
     dispatch(toggleIsFetching(true)); //9) loading
     usersAPI.getUsers(currentPage, pageSize)
