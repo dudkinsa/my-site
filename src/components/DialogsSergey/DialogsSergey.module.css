@@ -1,0 +1,19 @@
+.dialogs {
+    display: grid;
+    grid-template-columns: 2fr 5fr;
+}
+.messages{
+
+}
+.nameUsers{
+
+}
+.nameUser a.activeLink{
+color: gold;
+}
+.userDialogs{
+
+}
+.userMessage{
+
+}
