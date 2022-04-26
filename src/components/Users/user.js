@@ -3,6 +3,7 @@ import styles from "./users.module.css";
 import userPhoto from "../../assets/images/user.png";
 import {NavLink} from "react-router-dom";
 import * as axios from "axios";
+import {usersAPI} from "../../api/api";
 
 let User = (props) => {
 // Math.ceil округляет количество странициц в большую сторону
@@ -33,13 +34,7 @@ let User = (props) => {
                                 {u.followed
                                     ? <button disabled={props.followingInProgress.some(id=> id === u.id)} onClick={() => {
                                         props.toggleFollowingProgress(true,u.id);
-                                        axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`,
-                                            {
-                                                withCredentials:true,
-                                                headers: {
-                                                    'API-KEY': '7033f14c-fcab-4243-a426-9579c0201be9'
-                                                }
-                                            })
+                                        usersAPI.unfollow(u.id)
                                             .then(response => {
                                                 if (response.data.resultCode ===0){
                                                     props.unfollow(u.id)
@@ -50,13 +45,7 @@ let User = (props) => {
                                     }}>Unfollow</button>
                                     : <button disabled={props.followingInProgress.some(id=> id === u.id)} onClick={() => {
                                         props.toggleFollowingProgress(true,u.id);
-                                        axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`,{},
-                                            {
-                                            withCredentials:true,
-                                            headers: {
-                                                    'API-KEY': '7033f14c-fcab-4243-a426-9579c0201be9'
-                                                }
-                                            })
+                                        usersAPI.follow(u.id)
                                             .then(response => {
                                                 if (response.data.resultCode ===0){
                                                     props.follow(u.id)
