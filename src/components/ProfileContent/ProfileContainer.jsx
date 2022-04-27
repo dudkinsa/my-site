@@ -4,9 +4,10 @@ import ProfileContent from "./ProfileContent";
 import * as axios from "axios";
 
 
-import {setUserProfile} from "../../redux/profileContentReducer";
+import {getUserProfile} from "../../redux/profileContentReducer";
 import {connect} from "react-redux";
 import {useLocation, useNavigate, useParams} from "react-router";
+import {usersAPI} from "../../api/api";
 // withRouter код для 6 версии. 1)
 function withRouter(Component) {
     function ComponentWithRouterProp(props) {
@@ -27,11 +28,10 @@ class ProfileContainer extends React.Component {
     componentDidMount() {
 
         let userId = this.props.router.params.userId ; // withRouter код для 6 версии. 2)
-
-        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`)
-            .then(response => {
-                this.props.setUserProfile(response.data);
-            });
+        if (!userId) {
+            userId= 2;
+        }
+        this.props.getUserProfile(userId);
     }
 
     render() {
@@ -42,5 +42,5 @@ let mapStateToProps =(state) =>({
     profile: state.profilePage.profile
 })
  let withUrlDataContainerComponent = withRouter(ProfileContainer)// withRouter код для 6 версии. 3)
-export default connect(mapStateToProps,{setUserProfile}) (withUrlDataContainerComponent);// withRouter код для 6 версии. 4) вставлен withUrlDataContainerComponent
+export default connect(mapStateToProps,{getUserProfile}) (withUrlDataContainerComponent);// withRouter код для 6 версии. 4) вставлен withUrlDataContainerComponent
 

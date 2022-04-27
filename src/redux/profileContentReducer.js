@@ -1,3 +1,5 @@
+import {usersAPI} from "../api/api";
+
 const ADD_MY_MESSAGE_DATA = 'ADD_MY_MESSAGE_DATA';
 const CHANGE_SYMBOL_MY_MESSAGE = 'CHANGE_SYMBOL_MY_MESSAGE';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
@@ -49,6 +51,11 @@ export const addMyMessageDataCreator = () => {
     }
 }
 export const setUserProfile = (profile) => ({type: SET_USER_PROFILE, profile})
+export const getUserProfile = (userId) =>(dispatch) =>{
+    usersAPI.getProfile(userId).then(response => {
+        dispatch(setUserProfile(response.data));
+    });
+}
 export const changeSymbolMyMessageCreator = (text) => {
     return {
         type: CHANGE_SYMBOL_MY_MESSAGE
